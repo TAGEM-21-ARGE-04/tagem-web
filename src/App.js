@@ -1,10 +1,16 @@
+import { Routes } from "Routes";
+import { BrowserRouter, useRoutes } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-
-    </div>
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
   );
-}
+};
+
+const Router = () => {
+  return useRoutes(Routes);
+};
 
 export default App;
