@@ -26,16 +26,17 @@ export const options = {
     responsive: true,
     plugins: {
       legend: {
+        display: false,
         position: 'top',
       },
       title: {
-        display: true,
+        display: false,
         text: 'Chart.js Line Chart',
-      },
+      }
     },
-  };
+};
   
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'AUGUST', 'SEPTEMBER', 'NOVEMBER', 'DECEMBER'];
   
   export const data = {
     labels,
@@ -45,17 +46,9 @@ export const options = {
         data: labels.map((a, i) => i * 30),
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-      {
-        label: 'Dataset 2',
-        data: labels.map((a, i) => i * 100),
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      },
+      }
     ],
   };
-  
-
 const TimeChart = () => {
     return <Line options={options} data={data} />;
   };

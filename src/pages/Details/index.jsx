@@ -41,7 +41,6 @@ const Details = () => {
         getGroupDetails();
     }, []);
 
-    // justifyContent="space-between" alignItems="flex-start" 
     return (
         <Stack sx={{ marginTop: "4rem" }} alignItems="center" justifyContent="center" >
             <Grid sx={{ width: "70%" }} container>
