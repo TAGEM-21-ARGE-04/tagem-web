@@ -21,7 +21,7 @@ const Home = () => {
 
   const navigate = useNavigate();
   const handleDlete = async (row) => {}
-  const handleOpenDetails = (row) => navigate(`/details/${row.id}`); 
+  const handleOpenDetails = (row) => navigate(`/details/${row.id}`)   ; 
   const columns = [
     {
       id: 0,
@@ -80,20 +80,20 @@ const Home = () => {
   }, []);
 
   return (
-    <>
-      <Stack direction="column" sx={{ marginLeft: "8%", marginRight: "8%", marginTop: "4rem" }} alignItems="center">
-        <Stack  sx={{ width: "70%" }} direction="row"  justifyContent="flex-end">
+    <Stack direction="row" justifyContent="center">
+<Stack direction="column" sx={{ width: "70%", marginTop: "4rem" }} justifyContent="center" alignContent="center" alignItems="center">
+        <Stack  sx={{ width: "100%" }} direction="row"  justifyContent="flex-end">
           <Button onClick={handleOpen} variant="contained">
             Create New
           </Button>
         </Stack>
-        <Stack sx={{ width: "70%", paddingTop: "1rem" }}>
+        <Stack sx={{ width: "100%", paddingTop: "1rem" }}>
           <Paper sx={{padding: 2}} elevation={5}>
               <BasicTable rows={groups} columns={columns} />
             </Paper>
         </Stack>
       </Stack>
-    </>
+    </Stack>
   );
 };
 
