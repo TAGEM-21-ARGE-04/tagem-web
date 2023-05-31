@@ -2,19 +2,22 @@ import AppLayout from "pages/Layout";
 import NotFound from "pages/NotFound";
 import PrivateRoute from "component/PrivateRoute";
 import Home from "pages/Home";
+import Details from "pages/Details";
 
 export const Routes = 
 [
     {
         path: "/",
         element: <AppLayout />,
-        auth: true,
-        roles: ["ADMIN"],
         children: [
             {
                 index: true,
                 element: <Home />
             },
+            {
+                path: "/details/:id", 
+                element: <Details />   
+            }
         ],
     },
     {
