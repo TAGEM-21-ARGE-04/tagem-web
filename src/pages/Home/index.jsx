@@ -1,20 +1,32 @@
 import { Button, Paper, Stack } from "@mui/material";
+import BasicTable from "component/table/Table";
 import { useEffect, useState } from "react";
 import axios from "utils/Api";
 
 const Home = () => {
-  const [jobs, setJobs] = useState([]);
+  const [groups, setGroups] = useState([]);
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const getAllJGroup = async () => {}
+  const getAllJGroup = async () => {
+    const res = await axios.get("group");
+    
+    console.log({ res });
+
+    setGroups(res);
+  }
 
   const handleDlete = async (row) => {
   }
 
   const columns = [
+    {
+      id: 0,
+      name: "Id",
+      accesor: "id"
+    },
     {
       id: 1,
       name: "Name",
@@ -22,23 +34,23 @@ const Home = () => {
     },
     {
       id: 2,
-      name: "Group",
-      accesor: "group"
+      name: "Description",
+      accesor: "description"
     },
     {
       id: 3,
-      name: "Application",
-      customAccesor: () => "taima",
+      name: "FlowerCount",
+      accesor: "flowerCount",
     },
     {
-      id: 4, 
-      name: "cron",
-      accesor: "cron"
+      id: 4,
+      name: "Start Date",
+      accesor: "startDate",
     },
     {
-      id: 4, 
-      name: "url",
-      customAccesor: (row) => `${row.processes[0]?.processType} : ${row.processes[0]?.url}`
+      id: 6,
+      name: "Last Process Date",
+      accesor: "lastProcessDate"
     },
     {
       id: 5,
@@ -67,7 +79,18 @@ const Home = () => {
 
   return (
     <>
-      <h1>ASD</h1>
+      <Stack direction="column" sx={{ marginLeft: "8%", marginRight: "8%", marginTop: "4rem" }} alignItems="center">
+        <Stack  sx={{ width: "70%" }} direction="row"  justifyContent="flex-end">
+          <Button onClick={handleOpen} variant="contained">
+            Create New
+          </Button>
+        </Stack>
+        <Stack sx={{ width: "70%", paddingTop: "1rem" }}>
+          <Paper sx={{padding: 2}} elevation={5}>
+              <BasicTable rows={groups} columns={columns} />
+            </Paper>
+        </Stack>
+      </Stack>
     </>
   );
 };
