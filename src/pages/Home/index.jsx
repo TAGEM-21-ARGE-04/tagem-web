@@ -2,6 +2,7 @@ import { Button, Paper, Stack } from "@mui/material";
 import BasicTable from "component/table/Table";
 import { useEffect, useState } from "react";
 import axios from "utils/Api";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [groups, setGroups] = useState([]);
@@ -18,9 +19,9 @@ const Home = () => {
     setGroups(res);
   }
 
-  const handleDlete = async (row) => {
-  }
-
+  const navigate = useNavigate();
+  const handleDlete = async (row) => {}
+  const handleOpenDetails = (row) => navigate(`/details/${row.id}`); 
   const columns = [
     {
       id: 0,
@@ -57,6 +58,7 @@ const Home = () => {
       name: "Actions",
       customAccesor: (row) => (
         <Stack direction="row" spacing={1} >
+          <Button onClick={() => handleOpenDetails(row)} color="warning" variant="contained">Details</Button>
           <Button color="info" variant="contained">Edit</Button>
           <Button onClick={() => handleDlete(row)} color="error" variant="contained">Delete</Button>
         </Stack>
