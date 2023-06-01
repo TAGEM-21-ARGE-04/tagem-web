@@ -1,4 +1,4 @@
-import { Grid, Paper, Stack } from "@mui/material";
+import { CircularProgress, Grid, Paper, Stack } from "@mui/material";
 import Card from "component/Card";
 import TimeChart from "component/chart/TimeChart";
 import BasicTable from "component/table/Table";
@@ -28,6 +28,16 @@ const columns = [
 const Details = () => {
     const params = useParams();
     const [group, setGroup] = useState({ flowers: [] });
+    const [statistic, setStatistic] = useState();
+
+    const getStatistic = async () => {
+        try {
+            const res = await axios.get("statistic");
+            setStatistic(res);
+        } catch (e) {
+            console.log({ e });
+        }
+    }
 
     const getGroupDetails = async () => {
         if (params.id == null) return;
@@ -39,14 +49,23 @@ const Details = () => {
 
     useEffect(() => {
         getGroupDetails();
+        getStatistic();
     }, []);
 
     return (
         <Stack sx={{ marginTop: "4rem" }} alignItems="center" justifyContent="center" >
-            <Grid sx={{ width: "70%" }} container>
+            <Grid spacing={2} sx={{ width: "70%" }} container>
                 <Grid item md={9}>
                     <Paper sx={{ width: "100%", height: "100%" }}>
-                        <TimeChart />
+                        {
+                            statistic ? (
+                                <TimeChart statistic={statistic} />
+                            ) : (
+                                <Stack sx={{height: "500px" }} justifyContent="center" alignItems="center" >
+                                    <CircularProgress />
+                                </Stack>
+                            )
+                        }
                     </Paper>
                 </Grid>
                 <Grid item md={3}>

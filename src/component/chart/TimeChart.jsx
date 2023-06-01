@@ -36,20 +36,22 @@ export const options = {
     },
 };
   
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'AUGUST', 'SEPTEMBER', 'NOVEMBER', 'DECEMBER'];
-  
-  export const data = {
-    labels,
-    datasets: [
-      {
-        label: 'Dataset 1',
-        data: labels.map((a, i) => i * 30),
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      }
-    ],
+const TimeChart = ({ statistic }) => {
+
+  if (statistic == null) return;
+
+  const data = {
+    labels: statistic.labels,
+    datasets: statistic.dataSets.map(ds => ({
+      label: ds.name,
+      data: ds.data,
+      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    })) 
   };
-const TimeChart = () => {
+
+
+    console.log({ data });
     return <Line options={options} data={data} />;
   };
   
