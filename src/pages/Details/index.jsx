@@ -32,13 +32,13 @@ const STATISTIC_TYPE = [
 ]
 
 const QUERY_TYPE = [
-    "AVARAGE",
-    "SUM"
+    {label: "AVARAGE", value: "AVG"},
+    {label: "SUM", value: "SUM"}
 ]
 
 const QUERY_VARIABLE = [
-    "LEAF COUNT",
-    "LEAF VOLUME"
+    {label: "LEAF COUNT", value: "leafCount"},
+    {label: "LEAF VOLUME", value: "leafVolume"},
 ]
 
 const Details = () => {
@@ -51,7 +51,10 @@ const Details = () => {
 
     const getStatistic = async () => {
         try {
-            const res = await axios.get("statistic");
+            const res = await axios.post("statistic", {
+                queryVariable: QUERY_VARIABLE[queryVariable].value,
+                queryType: QUERY_TYPE[queryType].value
+            });
             setStatistic(res);
         } catch (e) {
             console.log({ e });
@@ -72,13 +75,11 @@ const Details = () => {
     }, []);
 
     useEffect(() => {
-        console.log({ queryType, queryVariable });
+        setStatistic(null);
+        getStatistic();        
     }, [queryType, queryVariable]);
 
-    const handleChangeQueryType = (i) => {
-        console.log({i});
-        setQueryType(i)
-    };
+    const handleChangeQueryType = (i) => setQueryType(i)
     const handleChangeQueryVariable = (i) => setQueryVariable(i);
     const handleChangeStatisticType = (i) => setStatisticType(i);
 
@@ -97,14 +98,14 @@ const Details = () => {
                 <ButtonGroup variant="contained" aria-label="outlined primary button group">
                     {
                         QUERY_TYPE.map((type, i) => (
-                            <Button onClick={() => handleChangeQueryType(i)} color={i == queryType ? "primary" : "inherit"}>{type}</Button>
+                            <Button onClick={() => handleChangeQueryType(i)} color={i == queryType ? "primary" : "inherit"}>{type.label}</Button>
                         ))
                     }
                 </ButtonGroup>
                 <ButtonGroup variant="contained" aria-label="outlined primary button group">
                     {
                         QUERY_VARIABLE.map((type, i) => (
-                            <Button onClick={() => handleChangeQueryVariable(i)} color={i == queryVariable ? "primary" : "inherit"}>{type}</Button>
+                            <Button onClick={() => handleChangeQueryVariable(i)} color={i == queryVariable ? "primary" : "inherit"}>{type.label}</Button>
                         ))
                     }
                 </ButtonGroup>
