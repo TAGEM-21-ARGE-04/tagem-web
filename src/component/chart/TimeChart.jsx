@@ -35,6 +35,21 @@ export const options = {
       }
     },
 };
+
+const generateRandomColor = () => {
+  const red = Math.floor(Math.random() * 256);
+  const green = Math.floor(Math.random() * 256);
+  const blue = Math.floor(Math.random() * 256);
+  const alpha = Math.random().toFixed(1); // 1 ondalık basamaklı alpha değeri
+
+  const borderColor = `rgb(${red}, ${green}, ${blue})`;
+  const backgroundColor = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+
+  return {
+    borderColor: borderColor,
+    backgroundColor: backgroundColor
+  };
+}
   
 const TimeChart = ({ statistic }) => {
 
@@ -42,17 +57,18 @@ const TimeChart = ({ statistic }) => {
 
   const data = {
     labels: statistic.labels,
-    datasets: statistic.dataSets.map(ds => ({
-      label: ds.name,
-      data: ds.data,
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    })) 
+    datasets: statistic.dataSets.map(ds => {
+      const colors = generateRandomColor();
+      return ({
+        label: ds.name,
+        data: ds.data,
+        borderColor: colors.borderColor,
+        backgroundColor: colors.backgroundColor,
+      })
+    }) 
   };
 
+  return <Line options={options} data={data} />;
+};
 
-    console.log({ data });
-    return <Line options={options} data={data} />;
-  };
-  
-  export default TimeChart;
+export default TimeChart;
