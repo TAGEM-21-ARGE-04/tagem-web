@@ -22,25 +22,23 @@ const QUERY_VARIABLE = [
 ]
 
 const ComparisonGroup = () => {
-    const { id } = useParams(); 
+    const { id1, id2 } = useParams(); 
     const [statistic, setStatistic] = useState();
-    const [group, setGroup] = useState({  id: null, flowers: [] });
-    const [statisticType, setStatisticType] = useState(2);
     const [queryType, setQueryType] = useState(0);
+    const [groups, setGroups] = useState({groups: []});
+    const [statisticType, setStatisticType] = useState(2);
     const [queryVariable, setQueryVariable] = useState(0);
 
-    const getStatistic = async (group) => {
+    const getStatistic = async (groups) => {
         try {
             setStatistic(null);
 
-            /*
             const res = await axios.post("statistic", {
-                group,
+                groups,
                 queryVariable: QUERY_VARIABLE[queryVariable].value,
                 queryType: QUERY_TYPE[queryType].value
             });
             setStatistic(res);
-            */
 
         } catch (e) {
             console.log({ e });
@@ -48,27 +46,29 @@ const ComparisonGroup = () => {
     }
 
     const getGroupDetails = async () => {
-        if (id == null) return;
+        if (id1 === null || id2 === null) return;
 
-        const group = await axios.get(`group/${id}`);
+        const group1 = await axios.get(`group/${id1}`);
+        const group2 = await axios.get(`group/${id2}`);
 
-        setGroup(group);
-
-        return group;
-    } 
+        return {groups: [group1, group2]};
+    }
 
     useEffect(() => {
         const initPageData = async () => {
-            const group = await getGroupDetails();
-            getStatistic(group);
+            const groups = await getGroupDetails();
+
+            getStatistic(groups.groups);
+            setGroups(groups.groups);
         }
+
         initPageData();
     }, []);
 
     useEffect(() => {
-        if(group.id == null) return;
+        if(groups.length === 0) return;
 
-        getStatistic(group);        
+        getStatistic(groups);        
     }, [queryType, queryVariable]);
 
     const handleChangeQueryType = (i) => setQueryType(i)
@@ -84,7 +84,7 @@ const ComparisonGroup = () => {
                     <Paper sx={{ width: "100%", height: "100%" }}>
                         {
                             statistic ? (
-                                <TimeChart statistic={statistic} />
+                                <TimeChart  legend={true} statistic={statistic} />
                             ) : (
                                 <Stack sx={{height: "500px" }} justifyContent="center" alignItems="center" >
                                     <CircularProgress />
