@@ -3,6 +3,7 @@ import BasicTable from "component/table/Table";
 import { useEffect, useState } from "react";
 import axios from "utils/Api";
 import { useNavigate } from "react-router-dom";
+import DataGrid from "component/table/DataTable";
 
 const Home = () => {
   const [groups, setGroups] = useState([]);
@@ -25,38 +26,50 @@ const Home = () => {
   const columns = [
     {
       id: 0,
-      name: "Id",
-      accesor: "id"
+      label: "Id",
+      field: "id",
+      numeric: false,
+      disablePadding: true,
     },
     {
       id: 1,
-      name: "Name",
-      accesor: "name"
+      label: "Name",
+      field: "name",
+      numeric: false,
+      disablePadding: true,
     },
     {
       id: 2,
-      name: "Description",
-      accesor: "description"
+      label: "Description",
+      field: "description",
+      numeric: false,
+      disablePadding: true,
     },
     {
       id: 3,
-      name: "FlowerCount",
-      accesor: "flowerCount",
+      label: "Flower Count",
+      field: "flowerCount",
+      numeric: false,
+      disablePadding: true,
     },
     {
       id: 4,
-      name: "Start Date",
-      accesor: "startDate",
+      label: "Start Date",
+      field: "startDate",
+      numeric: false,
+      disablePadding: true,
     },
     {
       id: 6,
-      name: "Last Process Date",
-      accesor: "lastProcessDate"
+      label: "Last Process Date",
+      field: "lastProcessDate",
+      numeric: false,
+      disablePadding: true,
     },
     {
       id: 5,
-      name: "Actions",
-      customAccesor: (row) => (
+      label: "Actions",
+      accesor: (row) => (
         <Stack direction="row" spacing={1} >
           <Button onClick={() => handleOpenDetails(row)} color="warning" variant="contained">Details</Button>
           <Button color="info" variant="contained">Edit</Button>
@@ -81,7 +94,7 @@ const Home = () => {
 
   return (
     <Stack direction="row" justifyContent="center">
-<Stack direction="column" sx={{ width: "70%", marginTop: "4rem" }} justifyContent="center" alignContent="center" alignItems="center">
+      <Stack direction="column" sx={{ width: "70%", marginTop: "4rem" }} justifyContent="center" alignContent="center" alignItems="center">
         <Stack  sx={{ width: "100%" }} direction="row"  justifyContent="flex-end">
           <Button onClick={handleOpen} variant="contained">
             Create New
@@ -89,7 +102,10 @@ const Home = () => {
         </Stack>
         <Stack sx={{ width: "100%", paddingTop: "1rem" }}>
           <Paper sx={{padding: 2}} elevation={5}>
-              <BasicTable rows={groups} columns={columns} />
+              {
+                /* <BasicTable rows={groups} columns={columns} /> */
+              }
+              <DataGrid rows={groups} columns={columns} />
             </Paper>
         </Stack>
       </Stack>
