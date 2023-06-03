@@ -3,6 +3,7 @@ import NotFound from "pages/NotFound";
 import PrivateRoute from "component/PrivateRoute";
 import Home from "pages/Home";
 import Details from "pages/Details";
+import ComparisonGroup from "pages/ComparisonGroup";
 
 export const Routes = 
 [
@@ -17,7 +18,11 @@ export const Routes =
             {
                 path: "/details/:id", 
                 element: <Details />   
-            }
+            },
+            {
+                path: "/comparison/:id", 
+                element: <ComparisonGroup />   
+            },
         ],
     },
     {
