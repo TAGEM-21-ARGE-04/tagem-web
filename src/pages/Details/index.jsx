@@ -44,17 +44,21 @@ const QUERY_VARIABLE = [
 const Details = () => {
     const params = useParams();
     const [statistic, setStatistic] = useState();
-    const [group, setGroup] = useState({ flowers: [] });
+    const [group, setGroup] = useState({  id: null, flowers: [] });
     const [statisticType, setStatisticType] = useState(2);
     const [queryType, setQueryType] = useState(0);
     const [queryVariable, setQueryVariable] = useState(0);
 
-    const getStatistic = async () => {
+    const getStatistic = async (group) => {
         try {
+            setStatistic(null);
+
             const res = await axios.post("statistic", {
+                group,
                 queryVariable: QUERY_VARIABLE[queryVariable].value,
                 queryType: QUERY_TYPE[queryType].value
             });
+
             setStatistic(res);
         } catch (e) {
             console.log({ e });
@@ -67,16 +71,22 @@ const Details = () => {
         const group = await axios.get(`group/${params.id}`);
 
         setGroup(group);
+
+        return group;
     } 
 
     useEffect(() => {
-        getGroupDetails();
-        getStatistic();
+        const initPageData = async () => {
+            const group = await getGroupDetails();
+            getStatistic(group);
+        }
+        initPageData();
     }, []);
 
     useEffect(() => {
-        setStatistic(null);
-        getStatistic();        
+        if(group.id == null) return;
+
+        getStatistic(group);        
     }, [queryType, queryVariable]);
 
     const handleChangeQueryType = (i) => setQueryType(i)
