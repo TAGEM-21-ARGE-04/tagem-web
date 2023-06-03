@@ -139,7 +139,7 @@ EnhancedTableHead.propTypes = {
 };
 
 function EnhancedTableToolbar(props) {
-  const { numSelected } = props;
+  const { numSelected, toolbar, selected } = props;
 
   return (
     <Toolbar
@@ -173,11 +173,22 @@ function EnhancedTableToolbar(props) {
       )}
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
+        <>
+          {
+            toolbar && (
+              <Tooltip title={toolbar.name}>
+                <IconButton onClick={() => toolbar.onClick(selected)}>
+                  {toolbar.icon}
+                </IconButton>
+              </Tooltip>
+            )
+          }
+          <Tooltip title="Delete">
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </>
       ) : (
         <Tooltip title="Filter list">
           <IconButton>
@@ -193,7 +204,7 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function DataGrid({ rows, columns }) {
+export default function DataGrid({ rows, columns, toolbar }) {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
@@ -265,7 +276,7 @@ export default function DataGrid({ rows, columns }) {
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar selected={selected} toolbar={toolbar} numSelected={selected.length} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
