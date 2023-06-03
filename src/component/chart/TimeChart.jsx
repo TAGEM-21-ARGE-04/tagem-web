@@ -21,20 +21,6 @@ Title,
 Tooltip,
 Legend
 );
-  
-export const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: false,
-        position: 'top',
-      },
-      title: {
-        display: false,
-        text: 'Chart.js Line Chart',
-      }
-    },
-};
 
 const generateRandomColor = () => {
   const red = Math.floor(Math.random() * 256);
@@ -51,7 +37,7 @@ const generateRandomColor = () => {
   };
 }
   
-const TimeChart = ({ statistic }) => {
+const TimeChart = ({ statistic, legend }) => {
 
   if (statistic == null) return;
 
@@ -68,7 +54,25 @@ const TimeChart = ({ statistic }) => {
     }) 
   };
 
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: legend,
+        position: 'top',
+      },
+      title: {
+        display: false,
+        text: 'Chart.js Line Chart',
+      }
+    },
+  };
+
   return <Line options={options} data={data} />;
 };
+
+TimeChart.defaultProps = {
+  legend: false
+}
 
 export default TimeChart;
