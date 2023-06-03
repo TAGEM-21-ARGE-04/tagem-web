@@ -20,7 +20,7 @@ export const Routes =
                 element: <Details />   
             },
             {
-                path: "/comparison/:id", 
+                path: "/comparison/:id1/:id2", 
                 element: <ComparisonGroup />   
             },
         ],
