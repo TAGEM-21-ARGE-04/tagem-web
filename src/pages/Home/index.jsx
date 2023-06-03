@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 import axios from "utils/Api";
 import { useNavigate } from "react-router-dom";
 import DataGrid from "component/table/DataTable";
+import CompareIcon from '@mui/icons-material/Compare';
+import MonitorIcon from '@mui/icons-material/Monitor';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Home = () => {
   const [groups, setGroups] = useState([]);
@@ -71,9 +75,9 @@ const Home = () => {
       label: "Actions",
       accesor: (row) => (
         <Stack direction="row" spacing={1} >
-          <Button onClick={() => handleOpenDetails(row)} color="warning" variant="contained">Details</Button>
-          <Button color="info" variant="contained">Edit</Button>
-          <Button onClick={() => handleDlete(row)} color="error" variant="contained">Delete</Button>
+          <Button onClick={() => handleOpenDetails(row)} color="warning" variant="contained"><MonitorIcon /></Button>
+          <Button color="info" variant="contained"><EditIcon /></Button>
+          <Button onClick={() => handleDlete(row)} color="error" variant="contained"><DeleteIcon /></Button>
         </Stack>
       ),
     }
@@ -105,7 +109,13 @@ const Home = () => {
               {
                 /* <BasicTable rows={groups} columns={columns} /> */
               }
-              <DataGrid rows={groups} columns={columns} />
+              <DataGrid toolbar={{
+                  icon: <CompareIcon />,
+                  onClick: (selected) => { 
+                    navigate(`/comparison/${selected[0]}/${selected[1]}`)
+                    console.log(selected);
+                  }
+              }} rows={groups} columns={columns} />
             </Paper>
         </Stack>
       </Stack>
