@@ -6,12 +6,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "utils/Api";
 
-const data = [
-    { x: new Date("2023-05-01"), y: 10 },
-    { x: new Date("2023-05-02"), y: 20 },
-    { x: new Date("2023-05-03"), y: 15 },
-];
-
 const columns = [
     {
         id: 1,
