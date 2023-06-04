@@ -320,7 +320,7 @@ export default function DataGrid({ rows, columns, toolbar }) {
                     {
                         columns.map(h => (
                             <TableCell align="right">
-                                {h.accesor ? h.accesor() : row[h["field"]]}
+                                {h.accesor ? h.accesor(row) : row[h["field"]]}
                             </TableCell>
                         ))
                     }
