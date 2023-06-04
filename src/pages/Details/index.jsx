@@ -1,5 +1,4 @@
 import { Button, ButtonGroup, CircularProgress, Divider, Grid, Paper, Stack } from "@mui/material";
-import Card from "component/Card";
 import TimeChart from "component/chart/TimeChart";
 import BasicTable from "component/table/Table";
 import { useEffect, useState } from "react";

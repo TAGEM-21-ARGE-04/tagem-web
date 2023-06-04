@@ -18,9 +18,7 @@ const Home = () => {
 
   const getAllJGroup = async () => {
     const res = await axios.get("group");
-    
-    console.log({ res });
-
+  
     setGroups(res);
   }
 
